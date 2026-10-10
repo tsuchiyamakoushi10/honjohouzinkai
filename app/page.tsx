@@ -2,6 +2,7 @@ import Link from "next/link";
 import Banners from "@/components/Banners";
 import JoinCta from "@/components/JoinCta";
 import NewsList from "@/components/NewsList";
+import NorenIntro from "@/components/NorenIntro";
 import Reveal from "@/components/Reveal";
 import SideInfo from "@/components/SideInfo";
 import { about, activityCards, awards, hero, mall, merits, site, stats, steps } from "@/lib/content";
@@ -12,14 +13,9 @@ export default function Home() {
     <>
       {/* 1. HERO */}
       <section className="hero" aria-labelledby="hero-title">
-        <div className="noren-intro" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
+        <NorenIntro />
         <div className="hero-bg" aria-hidden="true">
-          <img src="/images/hero.webp" alt="" width={1920} height={1080} fetchPriority="high" />
+          <img src="/images/hero.webp" alt="" width={1672} height={941} fetchPriority="high" />
         </div>
         <div className="kanban" aria-hidden="true">
           <span>中山道</span>
