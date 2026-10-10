@@ -67,6 +67,22 @@ export default function Home() {
         </div>
       </section>
 
+      {/* お知らせ（メインビジュアルの下に常時3件） */}
+      <section className="top-news" aria-labelledby="news-title">
+        <div className="wrap">
+          <Reveal className="top-news-inner">
+            <div className="top-news-head">
+              <span className="eyebrow">NEWS</span>
+              <h2 id="news-title">お知らせ</h2>
+              <Link href="/news" className="top-news-more">
+                一覧を見る →
+              </Link>
+            </div>
+            <NewsList items={news.slice(0, 3)} />
+          </Reveal>
+        </div>
+      </section>
+
       {/* 3. 法人会とは */}
       <section className="section" aria-labelledby="about-title">
         <div className="wrap intro-grid">
@@ -243,22 +259,6 @@ export default function Home() {
                 </Link>
               </div>
             </dl>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 8. お知らせ */}
-      <section className="section" aria-labelledby="news-title">
-        <div className="wrap narrow">
-          <Reveal className="sec-head">
-            <span className="eyebrow">NEWS</span>
-            <h2 id="news-title">お知らせ</h2>
-          </Reveal>
-          <Reveal>
-            <NewsList items={news.slice(0, 5)} />
-            <p style={{ marginTop: 24, textAlign: "right" }}>
-              <Link href="/news">過去のお知らせ（全{news.length}件） →</Link>
-            </p>
           </Reveal>
         </div>
       </section>

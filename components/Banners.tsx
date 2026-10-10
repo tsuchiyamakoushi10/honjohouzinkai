@@ -1,31 +1,48 @@
-import { banners } from "@/lib/content";
+import Link from "next/link";
+import { menuBanners, otherLinks } from "@/lib/content";
 
-const groups = ["国税", "法人会", "地域・制度"] as const;
-const groupLabel = { 国税: "国税庁からのお知らせ", 法人会: "法人会のサービス", "地域・制度": "地域・制度" };
-
-export default function Banners() {
+export default function Banners({ showOthers = true }: { showOthers?: boolean }) {
   return (
     <div className="banner-groups">
-      {groups.map((g) => (
-        <div className="banner-group" key={g}>
-          <h3>{groupLabel[g]}</h3>
-          <ul className="banner-grid">
-            {banners
-              .filter((b) => b.group === g)
-              .map((b) => (
-                <li key={b.href}>
-                  <a className="banner" href={b.href} target="_blank" rel="noopener">
-                    {b.img ? <img src={b.img} alt="" width={96} height={40} loading="lazy" /> : <span className="noimg">LINK</span>}
-                    <span>
-                      {b.label}
-                      <span className="ext" aria-label="（別ウィンドウ）">↗</span>
-                    </span>
-                  </a>
+      {menuBanners.map((g) => (
+        <div className={`banner-group grp-${g.color}`} key={g.group}>
+          <h3>{g.group}</h3>
+          <ul className="menu-banners">
+            {g.items.map((b) => {
+              const external = b.href.startsWith("http");
+              const img = <img src={`/images/menu/${b.id}.webp`} alt={b.label} width={520} height={90} loading="lazy" />;
+              return (
+                <li key={b.id}>
+                  {external ? (
+                    <a className="menu-banner" href={b.href} target="_blank" rel="noopener" aria-label={`${b.label}（別ウィンドウ）`}>
+                      {img}
+                    </a>
+                  ) : (
+                    <Link className="menu-banner" href={b.href}>
+                      {img}
+                    </Link>
+                  )}
                 </li>
-              ))}
+              );
+            })}
           </ul>
         </div>
       ))}
+      {showOthers && (
+        <div className="banner-group">
+          <h3>そのほかのリンク</h3>
+          <ul className="other-links">
+            {otherLinks.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} target="_blank" rel="noopener">
+                  {l.label}
+                  <span className="ext" aria-label="（別ウィンドウ）">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

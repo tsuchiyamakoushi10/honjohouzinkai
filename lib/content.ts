@@ -83,7 +83,7 @@ export const mall = [
       { noren: "保", name: "経営者大型総合保障制度", body: "生命保険と損害保険がセット。経営者・従業員の万一に備え、事業を止めない。", href: "/welfare#company" },
       { noren: "労", name: "アットワークハイパー任意労災", body: "政府労災の上乗せ。定額＋賠償の「ダブル補償」。", href: "/welfare#company" },
       { noren: "癌", name: "がん保険・医療保険制度", body: "会員企業は集団取扱料率の割安な保険料が適用。", href: "/welfare#personal" },
-      { noren: "貸", name: "法人会専用 貸倒保証制度", body: "与信管理は万全ですか？売掛金の焦げ付きに備える。", href: "/links#banners" },
+      { noren: "貸", name: "法人会専用 貸倒保証制度", body: "与信管理は万全ですか？売掛金の焦げ付きに備える。", href: "/contact" },
     ],
   },
   {
@@ -415,25 +415,69 @@ export const links = [
 ];
 
 /**
- * 旧トップのバナー16件。名前はバナー画像の文言から付けています。
- * img が無いものは旧サイトでも文字のバナーでした。
+ * 和風メニューバナー（public/images/menu/）。色で4グループ。
+ * todo: true は飛び先を事務局に要確認（旧リンク切れ・URL不明のため仮の飛び先）。
  */
-export const banners: { label: string; href: string; img?: string; group: "国税" | "地域・制度" | "法人会" }[] = [
-  { label: "国税庁の取組紹介", href: "https://www.nta.go.jp/about/introduction/torikumi/week/index.htm", img: "/images/banners/nta-torikumi.png", group: "国税" },
-  { label: "確定申告特集（各種情報・申告書作成）", href: "https://www.nta.go.jp/taxes/shiraberu/shinkoku/tokushu/index.htm", img: "/images/banners/kakutei.webp", group: "国税" },
-  { label: "年末調整がよくわかるページ", href: "https://www.nta.go.jp/users/gensen/nencho/index.htm", img: "/images/banners/nencho.webp", group: "国税" },
-  { label: "年末調整 電子化で業務効率化", href: "https://www.nta.go.jp/users/gensen/nenmatsu/nencho.htm", img: "/images/banners/nencho-denshi.webp", group: "国税" },
-  { label: "ダイレクト納付利用手続マニュアル", href: "https://www.nta.go.jp/taxes/nozei/nofu/pdf/24100030_direct_manual.pdf", group: "国税" },
-  { label: "「給与所得の源泉徴収票」はe-Taxで！", href: "https://www.nta.go.jp/taxes/tetsuzuki/mynumberinfo/kyuyogensenjoho-jigyousyapage.htm", group: "国税" },
-  { label: "自主点検チェックシート", href: "http://tax-compliance.brain-server2.net/compliance/units/", img: "/images/banners/compliance.jpg", group: "法人会" },
-  { label: "法人会ってどんな団体？ 紹介映像", href: "https://tv-player.ap1.admint.biz/5b330c0235f1a/player/1df1364d2f584befaa67de2e513ef875?site_id=5b330c0235f1a", img: "/images/banners/hojinkai-movie.jpg", group: "法人会" },
-  { label: "法人会の「ビジネスマッチング」（アメリカン・エキスプレス提供）", href: "https://houjinkai-reg.abmp.jp/?utm_source=partner&utm_medium=houjinkai&utm_campaign=honjoweb", img: "/images/banners/business-matching.jpg", group: "法人会" },
-  { label: "法人会専用プラン 貸倒保証制度", href: "http://www.mskhoken.com/houjin/", img: "/images/banners/kashidaore.jpg", group: "法人会" },
-  { label: "国立がん研究センター「がんドック検診」", href: "http://saitamakenhoren.net/gan_doc_pet.html", img: "/images/banners/gan-dock.webp", group: "法人会" },
-  { label: "インターネットによる企業情報・格付情報照会サービス", href: "https://www.ags.co.jp/nw/saitama/", img: "/images/banners/ags.jpg", group: "法人会" },
-  { label: "企業版ふるさと納税ポータルサイト", href: "https://www.kantei.go.jp/jp/singi/tiiki/tiikisaisei/kigyou_furusato.html", img: "/images/banners/furusato-kigyo.jpg", group: "地域・制度" },
-  { label: "地方拠点強化税制", href: "https://www.kantei.go.jp/jp/singi/tiiki/tiikisaisei/sakusei.html", img: "/images/banners/chiho-kyoten.jpg", group: "地域・制度" },
-  { label: "地方創生カレッジ", href: "https://chihousousei-college.jp/_home.html", img: "/images/banners/chiho-college.jpg", group: "地域・制度" },
-  // 旧サイトでは外部サーバーの認証バナー画像（現在は取得不可）。名称は要確認。
-  { label: "esod-neo 認証（要確認）", href: "https://www.esod-neo.com/client_certify.php?id=21PjEvJSpRo.k", group: "地域・制度" },
+export type MenuBanner = { id: string; label: string; href: string; todo?: boolean };
+
+export const menuBanners: { group: string; color: "ai" | "shu" | "kin" | "midori"; items: MenuBanner[] }[] = [
+  {
+    group: "国税の手続き",
+    color: "ai",
+    items: [
+      { id: "kakutei", label: "確定申告", href: "https://www.nta.go.jp/taxes/shiraberu/shinkoku/tokushu/index.htm" },
+      { id: "nencho", label: "年末調整", href: "https://www.nta.go.jp/users/gensen/nencho/index.htm" },
+      { id: "gensen", label: "源泉所得税", href: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/gensen.htm" },
+      { id: "etax", label: "e-Tax", href: "https://www.e-tax.nta.go.jp/" },
+      { id: "invoice", label: "インボイス制度", href: "https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice.htm" },
+      { id: "denshichobo", label: "電子帳簿保存法", href: "https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/index.htm" },
+      { id: "hojinzei", label: "法人税の申告", href: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/hojin.htm" },
+      { id: "tetsuzuki", label: "各種手続き一覧", href: "https://www.nta.go.jp/taxes/tetsuzuki/shinsei/index.htm" },
+    ],
+  },
+  {
+    group: "法人会",
+    color: "shu",
+    items: [
+      { id: "about", label: "法人会とは", href: "/about" },
+      { id: "join", label: "入会のご案内", href: "/join" },
+      { id: "zenhoren", label: "全国法人会総連合", href: "https://www.zenkokuhojinkai.or.jp/" },
+      { id: "kanshinetsu", label: "関東信越法人会連合会", href: "https://www.zenkokuhojinkai.or.jp/links/index.html", todo: true },
+      { id: "matching", label: "ビジネス・マッチング", href: "https://houjinkai-reg.abmp.jp/?utm_source=partner&utm_medium=houjinkai&utm_campaign=honjoweb" },
+      { id: "seinen", label: "青年部会", href: "/activity#tax-school" },
+      { id: "josei", label: "女性部会", href: "/activity#tax-school" },
+    ],
+  },
+  {
+    group: "保障・経営支援",
+    color: "kin",
+    items: [
+      { id: "kashidaore", label: "貸倒保証制度", href: "/contact", todo: true },
+      { id: "gandock", label: "がんドック検診", href: "/contact", todo: true },
+      { id: "welfare", label: "福利厚生制度", href: "/welfare" },
+      { id: "keiei", label: "経営支援情報", href: "https://www.chusho.meti.go.jp/", todo: true },
+      { id: "seminar", label: "セミナー・研修会", href: "/news" },
+      { id: "member-service", label: "会員向けサービス", href: "/welfare" },
+    ],
+  },
+  {
+    group: "地域",
+    color: "midori",
+    items: [
+      { id: "chiho-college", label: "地方創生カレッジ", href: "https://chihousousei-college.jp/_home.html" },
+      { id: "chiiki", label: "地域活性化の取組み", href: "https://www.chisou.go.jp/tiiki/tiikisaisei/kigyou_furusato.html", todo: true },
+      { id: "honjo", label: "本庄の魅力", href: "https://www.city.honjo.lg.jp/", todo: true },
+    ],
+  },
+];
+
+/** 旧トップのバナーのうち、メニューバナーに無いもの（リンク切れは除外済み） */
+export const otherLinks = [
+  { label: "国税庁の取組紹介", href: "https://www.nta.go.jp/about/introduction/torikumi/week/index.htm" },
+  { label: "年末調整 電子化で業務効率化", href: "https://www.nta.go.jp/users/gensen/nenmatsu/nencho.htm" },
+  { label: "ダイレクト納付利用手続マニュアル", href: "https://www.nta.go.jp/taxes/nozei/nofu/pdf/24100030_direct_manual.pdf" },
+  { label: "「給与所得の源泉徴収票」はe-Taxで！", href: "https://www.nta.go.jp/taxes/tetsuzuki/mynumberinfo/kyuyogensenjoho-jigyousyapage.htm" },
+  { label: "自主点検チェックシート", href: "http://tax-compliance.brain-server2.net/compliance/units/" },
+  { label: "法人会ってどんな団体？ 紹介映像", href: "https://tv-player.ap1.admint.biz/5b330c0235f1a/player/1df1364d2f584befaa67de2e513ef875?site_id=5b330c0235f1a" },
+  { label: "esod-neo 認証（要確認）", href: "https://www.esod-neo.com/client_certify.php?id=21PjEvJSpRo.k" },
 ];
