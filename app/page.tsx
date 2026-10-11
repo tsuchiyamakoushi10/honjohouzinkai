@@ -22,9 +22,6 @@ export default function Home() {
           <span>本庄宿</span>
         </div>
         <div className="wrap hero-inner">
-          <p className="hero-badge">
-            公益社団法人 本庄法人会 <b>会員募集中</b>
-          </p>
           <h1 id="hero-title" className="hero-catch">
             {hero.lines.map((l, i) => (
               <span className="line" key={l}>
